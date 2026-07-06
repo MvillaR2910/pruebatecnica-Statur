@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+<section class="auth-layout">
+    <div class="card auth-card">
+        <div class="card-header">
+            <h1>Iniciar sesión</h1>
+            <p>Ingresa con tus credenciales para administrar clientes.</p>
+        </div>
+
+        <form method="post" class="auth-form">
+            <label for="usuario">Usuario</label>
+            <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
+
+            <label for="contrasena">Contraseña</label>
+            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+
+            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+        </form>
+
+        <p class="auth-link">
+            ¿No tienes cuenta?
+            <a href="{{ url_for('auth.registro') }}">Regístrate</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

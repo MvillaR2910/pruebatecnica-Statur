@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Panel de clientes{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <h1>Gestión de clientes</h1>
+        <p>Consulta, registra, edita y elimina clientes del sistema.</p>
+    </div>
+    <a href="{{ url_for('cliente.crear_cliente') }}" class="btn btn-primary">Nuevo cliente</a>
+</section>
+
+<section class="card">
+    {% if clientes %}
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Documento</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Creado por</th>
+                        <th>Departamento</th>
+                        <th>Ciudad</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                        <tr>
+                            <td>{{ cliente.documento_identidad }}</td>
+                            <td>{{ cliente.nombres }}</td>
+                            <td>{{ cliente.apellidos }}</td>
+                            <td>{{ cliente.creado_por.usuario }}</td>
+                            <td>{{ cliente.departamento.nombre_departamento }}</td>
+                            <td>{{ cliente.ciudad.nombre_ciudad }}</td>
+                            <td>{{ cliente.email }}</td>
+                            <td>{{ cliente.telefono }}</td>
+                            <td class="actions">
+                                {% if cliente.creado_por_id == current_user.id %}
+                                    <a href="{{ url_for('cliente.editar_cliente', documento_identidad=cliente.documento_identidad) }}" class="btn btn-small btn-secondary-dark">Editar</a>
+                                    <form action="{{ url_for('cliente.eliminar_cliente', documento_identidad=cliente.documento_identidad) }}" method="post" onsubmit="return confirm('¿Seguro que deseas eliminar este cliente?');">
+                                        <button type="submit" class="btn btn-small btn-danger">Eliminar</button>
+                                    </form>
+                                {% else %}
+                                    <span class="badge-readonly">Solo lectura</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h2>No hay clientes registrados</h2>
+            <p>Registra el primer cliente para comenzar a gestionar la información.</p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
