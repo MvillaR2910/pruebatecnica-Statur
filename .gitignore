@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+cliente_crud_app/venv/
+
+# Local databases and env files
+*.db
+.env
+
+# Editors
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
